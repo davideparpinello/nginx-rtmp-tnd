@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>LaTendaTV | RTMP-HLS Player</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.16/mediaelement-and-player.min.js"
+    integrity="sha512-MgxzaA7Bkq7g2ND/4XYgoxUbehuHr3Q/bTuGn4lJkCxfxHEkXzR1Bl0vyCoHhKlMlE2ZaFymsJrRFLiAxQOpPg=="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.16/mediaelementplayer.min.css"
+    integrity="sha512-RZKnkU75qu9jzuyC+OJGffPEsJKQa7oNARCA6/8hYsHk2sd7Sj89tUCWZ+mV4uAaUbuzay7xFZhq7RkKFtP4Dw=="
+    crossorigin="anonymous" />
+  <style type="text/css" media="screen">
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      text-align: center;
+      background-color: #ffffff;
+    }
+
+    object:focus {
+      outline: none;
+    }
+
+    .mejs__video {
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>La Tenda TV</h1>
+  <h2>RTMP-HLS Server</h2>
+  <div>
+    <a href="/vod.html">Riproduci flusso RTMP</a><br><a href="/stat">Statistiche RTMP</a>
+  </div>
+  <br>
+  <input id="userInput" value="" placeholder="http://192.168.1.2:8080/live/stream.m3u8" size="80"> <button
+    id="playButton">Play RTMP or HLS Stream</button><br>
+  <br>
+  <div>
+    <video id="player1" width="640" height="360" id="player1" preload="none" playsinline webkit-playsinline>
+
+      <!-- Pseudo HTML5 -->
+
+
+    </video>
+  </div>
+  <br>
+
+
+  <script>
+    var player = new MediaElementPlayer('player1');
+    $(document).ready(function () {
+      source = getUrlParameter('stream');
+      player.setSrc(source);
+      player.play();
+    });
+    $("#playButton").click(function () {
+      player.play();
+      player.setSrc($('#userInput').val());
+      player.play();
+    })
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+      }
+    };
+  </script>
+
+</body>
+
+</html>
